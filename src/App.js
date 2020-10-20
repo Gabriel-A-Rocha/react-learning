@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
-
 import Person from "./Person/Person";
+import { StyledButton } from "./AppStyled";
 
 const App = () => {
   const [personsState, setPersonsState] = useState({
@@ -50,27 +50,6 @@ const App = () => {
     }));
   };
 
-  const style = {
-    backgroundColor: "green",
-    color: "white",
-    font: "inherit",
-    border: "1px solid blue",
-    padding: "8px",
-    cursor: "pointer",
-    ":hover": {
-      backgroundColor: "#074918",
-    },
-  };
-
-  if (personsState.showPersons) {
-    style.backgroundColor = "red";
-    style[":hover"] = {
-      backgroundColor: "#7f1114",
-    };
-  } else {
-    style.backgroundColor = "green";
-  }
-
   let classes = [];
   if (personsState.persons.length <= 2) {
     classes.push("red");
@@ -81,11 +60,14 @@ const App = () => {
 
   return (
     <div className="App">
-      <p className={classes.join(" ")}>Please introduce yourself:</p>
+      <p className={classes.join(" ")}>Person Cards</p>
 
-      <button style={style} onClick={togglePersonsHandler}>
+      <StyledButton
+        showContent={personsState.showPersons}
+        onClick={togglePersonsHandler}
+      >
         Toggle Persons
-      </button>
+      </StyledButton>
 
       {personsState.showPersons && (
         <div>
