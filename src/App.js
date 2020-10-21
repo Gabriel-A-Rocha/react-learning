@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./App.css";
 import Person from "./Person/Person";
 import { StyledButton } from "./AppStyled";
+import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
 
 const App = () => {
   const [personsState, setPersonsState] = useState({
@@ -72,13 +73,14 @@ const App = () => {
       {personsState.showPersons && (
         <div>
           {personsState.persons.map((person) => (
-            <Person
-              key={person.id}
-              name={person.name}
-              age={person.age}
-              changed={(evt) => nameChangedHandler(evt, person.id)}
-              deleteHandler={() => deletePersonHandler(person.id)}
-            />
+            <ErrorBoundary key={person.id}>
+              <Person
+                name={person.name}
+                age={person.age}
+                changed={(evt) => nameChangedHandler(evt, person.id)}
+                deleteHandler={() => deletePersonHandler(person.id)}
+              />
+            </ErrorBoundary>
           ))}
         </div>
       )}
